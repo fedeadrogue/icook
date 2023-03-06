@@ -1,0 +1,13 @@
+# from LeWagon as minimum
+pytest
+pylint
+ipdb
+jupyterlab
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+
+# our added packages
+roboflow
