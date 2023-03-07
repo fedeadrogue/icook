@@ -49,7 +49,7 @@ def SpoonAPIcall(ingredients:list, #list of infgredients
     ingredients_str
 
     response=Get_recipies_id(ingredients_str,number)
-    if response>0:
+    if response!=None:
         result=[]
         for i in range(number):
             information=Get_recipies_information(response[i]['id'])
