@@ -1,5 +1,37 @@
-import requests
 import os
+import sys
+from roboflow import Roboflow
+import streamlit as st
+from PIL import Image
+import requests
+import io
+
+sys.stdout = open(os.devnull, "w")
+
+Spoon_API_KEY = '5cf4d9752bea4c38b962e643ca227e27'
+Robo_API_KEY = 'qhSk7QdaM3p1YIzIdrPZ'
+
+rf = Roboflow(api_key=Robo_API_KEY)
+project = rf.workspace().project("icook")
+model = project.version(3).model
+
+sys.stdout = sys.__stdout__
+url = "http://localhost:8501/"
+session = requests.Session()
+session.request('POST', url,timeout=60)
+
+def Recognition(image):
+
+    '''Object Recognition Model predicts input image, saves output image and returns the list of ingredients'''
+    prediction = model.predict(image)
+
+    preds_class = []
+    for result in prediction.json()['predictions']:
+        preds_class.append(result['class'])
+
+    prediction.save(output_path="output_image.jpg")
+
+    return preds_class
 
 def Get_recipies_id(ingredients:str, #list of infgredients separate by coma in only one str not list.
                     number:int=1, # max number of recipies you want to return
@@ -33,10 +65,9 @@ def Get_recipies_information(id:list,
     return response['spoonacularSourceUrl']
 
 
-def SpoonAPIcall(ingredients:list, #list of infgredients
-            number:int=1, # max number of recipies you want to return
+def SpoonAPIcall(ingredients:list,
+            number:int=1,
             ):
-    '''Return a list of tuples (title of the recipie, url)'''
     ingredients_unique=list(set(ingredients))
 
     ingredients_str=''
@@ -45,8 +76,6 @@ def SpoonAPIcall(ingredients:list, #list of infgredients
             ingredients_str= ingredient
         else:
             ingredients_str=ingredients_str + ', ' + ingredient
-
-    ingredients_str
 
     response=Get_recipies_id(ingredients_str,number)
     if response!=None:
