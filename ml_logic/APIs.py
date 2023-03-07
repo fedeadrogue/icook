@@ -1,3 +1,4 @@
+<<<<<<< HEAD:API_Roboflow_Spoonacular.py
 import os
 import sys
 from roboflow import Roboflow
@@ -32,6 +33,10 @@ def Recognition(image):
     prediction.save(output_path="output_image.jpg")
 
     return preds_class
+=======
+import requests
+import os
+>>>>>>> ba787e8538cb22c03f9006f11aa2c75b9ec8c0ce:ml_logic/APIs.py
 
 def Get_recipies_id(ingredients:str, #list of infgredients separate by coma in only one str not list.
                     number:int=1, # max number of recipies you want to return
@@ -41,7 +46,7 @@ def Get_recipies_id(ingredients:str, #list of infgredients separate by coma in o
     url = "https://api.spoonacular.com/recipes/findByIngredients"
 
     params={
-        'apiKey':Spoon_API_KEY,
+        'apiKey':os.environ.get('SPOON_API_KEY'),
         'ingredients':ingredients,
         'number':number
     }
@@ -56,7 +61,7 @@ def Get_recipies_information(id:list,
     url = f"https://api.spoonacular.com/recipes/{id}/information"
 
     params={
-        'apiKey':Spoon_API_KEY,
+        'apiKey':os.environ.get("SPOON_API_KEY"),
         'id':id,
         'includeNutrition':False
     }
@@ -78,7 +83,13 @@ def SpoonAPIcall(ingredients:list,
             ingredients_str=ingredients_str + ', ' + ingredient
 
     response=Get_recipies_id(ingredients_str,number)
+    if response>0:
+        result=[]
+        for i in range(number):
+            information=Get_recipies_information(response[i]['id'])
+            result.append((response[i]['title'],information))
 
+<<<<<<< HEAD:API_Roboflow_Spoonacular.py
     result=[]
     for i in range(number):
         if i < len(response):
@@ -88,3 +99,8 @@ def SpoonAPIcall(ingredients:list,
             break
 
     return result
+=======
+        return result
+    else:
+        print('0 recipies found')
+>>>>>>> ba787e8538cb22c03f9006f11aa2c75b9ec8c0ce:ml_logic/APIs.py
