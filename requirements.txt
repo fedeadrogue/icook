@@ -13,4 +13,3 @@ scikit-learn
 roboflow
 requests
 streamlit
-Pillow
