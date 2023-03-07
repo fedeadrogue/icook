@@ -1,9 +1,9 @@
 import streamlit as st
-from PIL import Image
-import tempfile
-from API_Roboflow_Spoonacular import SpoonAPIcall, Recognition
+from ml_logic.APIs import SpoonAPIcall
+from ml_logic.model_roboflow import Recognition
 import numpy as np
 import cv2
+
 st.set_page_config(page_title="iCook", page_icon=":fork_and_knife:")
 
 st.title("iCook")
