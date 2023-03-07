@@ -1,42 +1,5 @@
-<<<<<<< HEAD:API_Roboflow_Spoonacular.py
 import os
-import sys
-from roboflow import Roboflow
-import streamlit as st
-from PIL import Image
 import requests
-import io
-
-sys.stdout = open(os.devnull, "w")
-
-Spoon_API_KEY = '5cf4d9752bea4c38b962e643ca227e27'
-Robo_API_KEY = 'qhSk7QdaM3p1YIzIdrPZ'
-
-rf = Roboflow(api_key=Robo_API_KEY)
-project = rf.workspace().project("icook")
-model = project.version(3).model
-
-sys.stdout = sys.__stdout__
-url = "http://localhost:8501/"
-session = requests.Session()
-session.request('POST', url,timeout=60)
-
-def Recognition(image):
-
-    '''Object Recognition Model predicts input image, saves output image and returns the list of ingredients'''
-    prediction = model.predict(image)
-
-    preds_class = []
-    for result in prediction.json()['predictions']:
-        preds_class.append(result['class'])
-
-    prediction.save(output_path="output_image.jpg")
-
-    return preds_class
-=======
-import requests
-import os
->>>>>>> ba787e8538cb22c03f9006f11aa2c75b9ec8c0ce:ml_logic/APIs.py
 
 def Get_recipies_id(ingredients:str, #list of infgredients separate by coma in only one str not list.
                     number:int=1, # max number of recipies you want to return
@@ -83,24 +46,12 @@ def SpoonAPIcall(ingredients:list,
             ingredients_str=ingredients_str + ', ' + ingredient
 
     response=Get_recipies_id(ingredients_str,number)
-    if response>0:
+    if response!=None:
         result=[]
         for i in range(number):
             information=Get_recipies_information(response[i]['id'])
             result.append((response[i]['title'],information))
 
-<<<<<<< HEAD:API_Roboflow_Spoonacular.py
-    result=[]
-    for i in range(number):
-        if i < len(response):
-            information=Get_recipies_information(response[i]['id'])
-            result.append((response[i]['title'],information))
-        else:
-            break
-
-    return result
-=======
         return result
     else:
         print('0 recipies found')
->>>>>>> ba787e8538cb22c03f9006f11aa2c75b9ec8c0ce:ml_logic/APIs.py
