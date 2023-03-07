@@ -12,3 +12,4 @@ scikit-learn
 # our added packages
 roboflow
 requests
+streamlit
