@@ -1,34 +1,5 @@
-import os
-import sys
-
-from roboflow import Roboflow
 import requests
-
-SPOON_API_KEY = '5cf4d9752bea4c38b962e643ca227e27'
-ROBO_API_KEY = 'qhSk7QdaM3p1YIzIdrPZ'
-
-sys.stdout = open(os.devnull, "w")
-
-rf = Roboflow(api_key=ROBO_API_KEY)
-project = rf.workspace().project("icook")
-model = project.version(1).model
-
-sys.stdout = sys.__stdout__
-
-image = "input_image.jpg"
-
-def Recognition(image):
-    '''Object Recognition Model predicts input image, saves output image and returns the list of ingredients'''
-    prediction = model.predict(image)
-
-    preds_class = []
-    for result in prediction.json()['predictions']:
-        preds_class.append(result['class'])
-
-    prediction.save(output_path="output_image.jpg")
-
-    return preds_class
-
+import os
 
 def Get_recipies_id(ingredients:str, #list of infgredients separate by coma in only one str not list.
                     number:int=1, # max number of recipies you want to return
@@ -38,7 +9,7 @@ def Get_recipies_id(ingredients:str, #list of infgredients separate by coma in o
     url = "https://api.spoonacular.com/recipes/findByIngredients"
 
     params={
-        'apiKey':SPOON_API_KEY,
+        'apiKey':os.environ.get('SPOON_API_KEY'),
         'ingredients':ingredients,
         'number':number
     }
@@ -53,7 +24,7 @@ def Get_recipies_information(id:list,
     url = f"https://api.spoonacular.com/recipes/{id}/information"
 
     params={
-        'apiKey':SPOON_API_KEY,
+        'apiKey':os.environ.get("SPOON_API_KEY"),
         'id':id,
         'includeNutrition':False
     }
@@ -85,8 +56,3 @@ def SpoonAPIcall(ingredients:list, #list of infgredients
         result.append((response[i]['title'],information))
 
     return result
-
-result = SpoonAPIcall(Recognition(image))
-
-print("Recomended Dish:", result[0][0])
-print("Dish Recipe:", result[0][1])
