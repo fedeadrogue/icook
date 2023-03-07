@@ -1,1 +1,3 @@
-new
+Looking for a way to spice up your meals without the hassle of flipping through countless recipe books or searching the web? Look no further than iCook, the revolutionary new app that lets you take control of your kitchen with ease. Whether you're a seasoned chef or a beginner cook, iCook offers the perfect solution to help you make the most of your pantry and your fridge.
+
+Gone are the days of staring blankly at your ingredients and wondering what you could possibly whip up for dinner. With iCook, all you need to do is snap a photo of the items you have on hand, and the app's advanced AI algorithms will do the rest, quickly identifying each item and giving you an instant list of recipe options to choose from.
