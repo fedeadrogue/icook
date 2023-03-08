@@ -13,3 +13,4 @@ scikit-learn
 roboflow
 requests
 streamlit
+google-cloud-storage

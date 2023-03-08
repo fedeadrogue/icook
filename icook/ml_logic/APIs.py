@@ -2,7 +2,7 @@ import os
 import requests
 
 def Get_recipies_id(ingredients:str, #list of infgredients separate by coma in only one str not list.
-                    number:int=4, # max number of recipies you want to return
+                    number:int=1, # max number of recipies you want to return
                     ):
     '''Return a list ode the .json files with the recipies'''
 
