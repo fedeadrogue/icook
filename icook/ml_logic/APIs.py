@@ -77,7 +77,6 @@ def SpoonAPIcall(ingredients:list,
                 'Preparation time':information['readyInMinutes'], # time of preparation
                 'spoonacularSourceUrl':information['spoonacularSourceUrl'] # Link for all details
             }
-
             recipes.append(recipe)
 
         #result={'recipes':recipes}
