@@ -30,12 +30,19 @@ def Get_recipies_information(id:list,
     }
     response=requests.get(url, params=params).json()
 
-    return response['spoonacularSourceUrl']
+    result={
+        'image':response['image'], # Picture of the recipie
+        'readyInMinutes':response['readyInMinutes'], # preparation time
+        'spoonacularSourceUrl':response['spoonacularSourceUrl'] # url link
+    }
+
+    return result
 
 
 def SpoonAPIcall(ingredients:list,
             number:int=1,
             ):
+    '''return a list of dicts with the recipie information'''
     ingredients_unique=list(set(ingredients))
 
     ingredients_str=''
@@ -46,12 +53,33 @@ def SpoonAPIcall(ingredients:list,
             ingredients_str=ingredients_str + ', ' + ingredient
 
     response=Get_recipies_id(ingredients_str,number)
+
     if response!=None:
+
         result=[]
+
         for i in range(number):
+            shooping_list=[]
+            for ingredient in range(response[i]['missedIngredientCount']):
+                shooping_list.append(response[i]['missedIngredients'][ingredient]['name'])
+
+            unused_ingredients=[]
+            for ingredient in range(len(response[i]['unusedIngredients'])):
+                unused_ingredients.append(response[i]['unusedIngredients'][ingredient]['name'])
+
             information=Get_recipies_information(response[i]['id'])
-            result.append((response[i]['title'],information))
+
+            recipie={
+                'Title':information[i]['title'], # Title of the recipie
+                'image':information[i]['image'], # Image of the dish
+                'Missed ingredients':len(shooping_list), # Quantity of missing ingredients
+                'Shooping llist':shooping_list, # list of the missing ingredients
+                'Unused ingredients':unused_ingredients, # list of the unsued ingredients for this recipie
+                'Preparation time':information[i]['readyInMinutes'], # time of preparation
+                'spoonacularSourceUrl':information[i]['spoonacularSourceUrl'] # Link for all details
+            }
+            result.append(recipie)
 
         return result
     else:
-        print('0 recipies found')
+        return '0 recipies found'
