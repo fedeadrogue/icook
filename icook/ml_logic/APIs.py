@@ -57,24 +57,33 @@ def SpoonAPIcall(ingredients:list,
     if response!=None:
 
         result=[]
+        title=[]
+        image=[]
+        shooping=[]
+        unused_ingredients=[]
+        preparation_time=[]
+        instruction=[]
 
         for i in range(number):
             shooping_list=[]
             for ingredient in range(response[i]['missedIngredientCount']):
-                shooping_list.append(response[i]['missedIngredients'][ingredient]['name'])
+                shooping_list.append(response[i]['missedIngredients'][ingredient]['name']) # list of the missing ingredients
 
-            unused_ingredients=[]
+            unused=[]
             for ingredient in range(len(response[i]['unusedIngredients'])):
-                unused_ingredients.append(response[i]['unusedIngredients'][ingredient]['name'])
+                unused.append(response[i]['unusedIngredients'][ingredient]['name']) # list of the unsued ingredients for this recipie
 
             information=Get_recipies_information(response[i]['id'])
+            title.append(information[i]['title']) # Title of the recipie
+            image.append(information[i]['image']) # Image of the dish
+            preparation_time.append(information[i]['readyInMinutes']) # time of preparation
+            instruction.append(information[i]['spoonacularSourceUrl']) # Link for all details
 
             recipie={
                 'Title':information[i]['title'], # Title of the recipie
                 'image':information[i]['image'], # Image of the dish
-                'Missed ingredients':len(shooping_list), # Quantity of missing ingredients
-                'Shooping llist':shooping_list, # list of the missing ingredients
-                'Unused ingredients':unused_ingredients, # list of the unsued ingredients for this recipie
+                'Shooping list':shooping_list, # list of the missing ingredients
+                'Unused ingredients':unused, # list of the unsued ingredients for this recipie
                 'Preparation time':information[i]['readyInMinutes'], # time of preparation
                 'spoonacularSourceUrl':information[i]['spoonacularSourceUrl'] # Link for all details
             }
