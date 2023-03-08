@@ -10,7 +10,14 @@ app = FastAPI()
 def index():
     return {'Running': True}
 
-@app.get('/recipe')
+@app.post('/recipes')
 def index(data: Dict[str,Any]):
-    result=SpoonAPIcall(Recognition(data['impage path']))
-    return result
+    products = list(data['products'].values())
+    recipies = SpoonAPIcall(products)
+    return {'recipe':recipies}
+
+@app.post('/recognition')
+def prediction(data:Dict[str,Any]):
+    image_path=data.path
+    products=Recognition(image_path)
+    return products

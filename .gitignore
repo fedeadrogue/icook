@@ -2,3 +2,4 @@ raw_data/
 .python-version
 .DS_Store
 __pycache__
+.env
