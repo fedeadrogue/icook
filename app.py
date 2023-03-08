@@ -19,15 +19,18 @@ if upload_image is not None:
     cv2_img_resized = cv2.resize(cv2_img, (640,640))
     cv2.imwrite('test.jpg', cv2_img_resized)
 
-    params={
-        'impage path':'test.jpg'
-    }
-    #preds_class = Recognition('test.jpg')
-    response = requests.post(url="http://localhost:8501n/recipe", data=params, headers={"Content-Type": "application/json"})
+    # df = pd.DataFrame({'path':['test.jpg']})
+    # json_data = df.to_json()
+    # result=requests.post(url="http://localhost:8000/recognition", data=json_data, headers={"Content-Type": "application/json"})
 
-    st.write("Predicted Ingredients:", response)
+    result=Recognition('test.jpg')
 
-    #results = SpoonAPIcall(preds_class)
+    df = pd.DataFrame({'products':result})
+    json_data = df.to_json()
+
+    response = requests.post(url="http://localhost:8000/recipes", data=json_data, headers={"Content-Type": "application/json"})
+
+    st.write("Predicted Ingredients:", response.json())
 
     # if results:
     #     st.write("Recommended Dish:", results[0][0])
