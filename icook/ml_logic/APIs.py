@@ -30,12 +30,20 @@ def Get_recipies_information(id:list,
     }
     response=requests.get(url, params=params).json()
 
-    return response['spoonacularSourceUrl']
+    result={
+        'image':response['image'], # Picture of the recipie
+        'readyInMinutes':response['readyInMinutes'], # preparation time
+        'spoonacularSourceUrl':response['spoonacularSourceUrl'] # url link
+    }
+
+    return result
 
 
 def SpoonAPIcall(ingredients:list,
             number:int=1,
             ):
+    '''return a list of dicts with the recipie information'''
+
     ingredients_unique=list(set(ingredients))
 
     ingredients_str=''
@@ -46,12 +54,35 @@ def SpoonAPIcall(ingredients:list,
             ingredients_str=ingredients_str + ', ' + ingredient
 
     response=Get_recipies_id(ingredients_str,number)
-    if response!=None:
-        result=[]
-        for i in range(number):
-            information=Get_recipies_information(response[i]['id'])
-            result.append((response[i]['title'],information))
 
-        return result
+    if response!=None:
+
+        recipes=[]
+
+        for i in range(number):
+            shooping_list=[]
+            for ingredient in range(response[i]['missedIngredientCount']):
+                shooping_list.append(response[i]['missedIngredients'][ingredient]['name']) # list of the missing ingredients
+
+            unused=[]
+            for ingredient in range(len(response[i]['unusedIngredients'])):
+                unused.append(response[i]['unusedIngredients'][ingredient]['name']) # list of the unsued ingredients for this recipie
+            information=Get_recipies_information(response[i]['id'])
+
+            recipe={
+                'Title':response[i]['title'], # Title of the recipie, # Title of the recipie
+                'image':information['image'], # Image of the dish
+                'Shooping list':shooping_list, # list of the missing ingredients
+                'Unused ingredients':unused, # list of the unsued ingredients for this recipie
+                'Preparation time':information['readyInMinutes'], # time of preparation
+                'spoonacularSourceUrl':information['spoonacularSourceUrl'] # Link for all details
+            }
+
+            recipes.append(recipe)
+
+        #result={'recipes':recipes}
+
+
+        return recipes
     else:
-        print('0 recipies found')
+        return '0 recipies found'
