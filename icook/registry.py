@@ -1,6 +1,6 @@
 import os
 import time
-from params import *
+from icook.params import *
 
 def load_model():
 

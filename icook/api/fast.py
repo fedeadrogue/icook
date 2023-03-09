@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from typing import Any, Dict
-import pandas as pd
 from icook.ml_logic.APIs import SpoonAPIcall
 from icook.ml_logic.model_roboflow import Recognition
+from icook.registry import load_model
 
 app = FastAPI()
+# model=load_model()
 
 @app.get('/')
 def index():
@@ -16,8 +17,8 @@ def index(data: Dict[str,Any]):
     recipies = SpoonAPIcall(products)
     return {'recipe':recipies}
 
-@app.post('/recognition')
-def prediction(data:Dict[str,Any]):
-    image_path=data.path
-    products=Recognition(image_path)
-    return products
+# @app.post('/recognition')
+# def prediction(data:Dict[str,Any]):
+#     image_path=data.path
+#     products=model.predict(image_path) # check if it is right
+#     return products
