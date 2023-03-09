@@ -2,7 +2,7 @@ import os
 import requests
 
 def get_recipes_id(ingredients:str, #list of infgredients separate by coma in only one str not list.
-                    number:int=1, # max number of recipes you want to return
+                    number:int=2, # max number of recipes you want to return
                     ):
     '''Return a list ode the .json files with the recipes'''
 
@@ -60,7 +60,7 @@ def get_recipe_steps(id:list,
 
 
 def SpoonAPIcall(ingredients:list, # list of ingredients (can be repeating)
-                 number:int=1 # max number of recipes you want to return (between 1 and 10)
+                 number:int=2 # max number of recipes you want to return (between 1 and 10)
                  ):
     '''return a list of dicts with the recipe information'''
 
