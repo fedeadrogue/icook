@@ -8,55 +8,93 @@ def get_recipes_id(ingredients:str, #list of infgredients separate by coma in on
 
     url = "https://api.spoonacular.com/recipes/findByIngredients"
 
-    params={
-        'apiKey':os.environ.get('SPOON_API_KEY'),
-        'ingredients':ingredients,
-        'number':number
-    }
+    SPOON_API_KEY=[
+        'SPOON_API_KEY_R',
+        'SPOON_API_KEY_F',
+        'SPOON_API_KEY_A',
+        'SPOON_API_KEY_L'
+    ]
 
-    return requests.get(url, params=params).json()
+    for key in SPOON_API_KEY:
+
+        params={
+            'apiKey':os.environ.get(key),
+            'ingredients':ingredients,
+            'number':number
+        }
+
+        response=requests.get(url, params=params).json()
+
+        if type(response)!=list and 'status' in response.keys():
+            pass
+        else:
+            return response
 
 
-def get_recipes_information(id:list,
+
+def get_recipes_information(id:int,
                              includeNutrition:bool=False):
     '''return the imag, the preparation time and the url to the recipe'''
 
     url = f"https://api.spoonacular.com/recipes/{id}/information"
 
-    params={
-        'apiKey':os.environ.get("SPOON_API_KEY"),
-        'id':id,
-        'includeNutrition':False
-    }
+    SPOON_API_KEY=[
+        'SPOON_API_KEY_R',
+        'SPOON_API_KEY_F',
+        'SPOON_API_KEY_A',
+        'SPOON_API_KEY_L'
+    ]
 
-    response=requests.get(url, params=params).json()
+    for key in SPOON_API_KEY:
 
-    result={
-        'image':response['image'], # Picture of the recipe
-        'readyInMinutes':response['readyInMinutes'], # preparation time
-        'spoonacularSourceUrl':response['spoonacularSourceUrl'] # url link
-    }
+        params={
+            'apiKey':os.environ.get(key),
+            'id':id,
+            'includeNutrition':False
+        }
 
-    return result
+        response=requests.get(url, params=params).json()
 
-def get_recipe_steps(id:list,
+        if type(response)!=list and 'status' in response.keys():
+            pass
+        else:
+            result={
+                'image':response['image'], # Picture of the recipe
+                'readyInMinutes':response['readyInMinutes'], # preparation time
+                'spoonacularSourceUrl':response['spoonacularSourceUrl'] # url link
+            }
+
+            return result
+
+def get_recipe_steps(id:int,
                      stepBreakdown: bool=True):
     '''Return a list of tuples (number of the step, description)'''
 
-    params={
-        'apiKey':os.environ.get("SPOON_API_KEY"),
-        'id':id,
-        'stepBreakdown':stepBreakdown
-    }
     url=f"https://api.spoonacular.com/recipes/{id}/analyzedInstructions"
+    SPOON_API_KEY=[
+        'SPOON_API_KEY_R',
+        'SPOON_API_KEY_F',
+        'SPOON_API_KEY_A',
+        'SPOON_API_KEY_L'
+    ]
 
-    response=requests.get(url, params=params).json()
+    for key in SPOON_API_KEY:
 
-    steps=[]
-    for step in range(len(response[0]['steps'])):
-        steps.append((response[0]['steps'][step]['number'],response[0]['steps'][step]['step']))
+        params={
+            'apiKey':os.environ.get(key),
+            'id':id,
+            'stepBreakdown':stepBreakdown
+        }
 
-    return steps
+        response=requests.get(url, params=params).json()
+        if type(response)!=list and 'status' in response.keys():
+            pass
+        else:
+            steps=[]
+            for step in range(len(response[0]['steps'])):
+                steps.append((response[0]['steps'][step]['number'],response[0]['steps'][step]['step']))
+
+            return steps
 
 
 def SpoonAPIcall(ingredients:list, # list of ingredients (can be repeating)
@@ -72,7 +110,6 @@ def SpoonAPIcall(ingredients:list, # list of ingredients (can be repeating)
 
     # call spoon API search by ingredients
     response=get_recipes_id(ingredients_str,number)
-
     if response!=None:
 
         recipes=[]
