@@ -89,16 +89,14 @@ def SpoonAPIcall(ingredients:list, # list of ingredients (can be repeating)
             recipe={
                 'Title':response[i]['title'], # title of the recipe
                 'Image':information['image'], # image of the dish
+                'Picture ingredients':ingredients_unique,
                 'Shooping list':shopping_list, # list of the missing ingredients
                 'Unused ingredients':unused_list, # list of the unsued ingredients for this recipe
                 'Preparation time':information['readyInMinutes'], # preparation time
                 #'spoonacularSourceUrl':information['spoonacularSourceUrl'], # Link for all details
-                'steps':steps
+                'steps':steps# List of tuples (step number, description)
             }
             recipes.append(recipe)
-
-        #result={'recipes':recipes}
-
 
         return recipes
     else:
