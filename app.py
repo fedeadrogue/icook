@@ -37,15 +37,15 @@ if upload_image is not None:
     df = pd.DataFrame({'products':result})
     json_data = df.to_json()
 
-    # API call to the docker in the cloud
-    response = requests.post(url="https://icook-6hyjqqtjpq-ew.a.run.app/recipes",
-                             data=json_data,
-                             headers={"Content-Type": "application/json"})
+    # # API call to the docker in the cloud
+    # response = requests.post(url="https://icook-6hyjqqtjpq-ew.a.run.app/recipes",
+    #                          data=json_data,
+    #                          headers={"Content-Type": "application/json"})
 
-    # # api call in local
-    # response = requests.post(url="http://0.0.0.0:8000/recipes",
-    #                         data=json_data,
-    #                         headers={"Content-Type": "application/json"})
+    # api call in local
+    response = requests.post(url="http://localhost:8000/recipes",
+                            data=json_data,
+                            headers={"Content-Type": "application/json"})
 
     response = response.json()
 
