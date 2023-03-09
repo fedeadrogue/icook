@@ -27,85 +27,50 @@ st.write("With iCook, all you need to do is snap a photo of the items you have o
 
 upload_image = st.camera_input("Take a picture of your food!")
 
+if upload_image is not None:
+    image = upload_image.read()
+    nparr = np.fromstring(image, np.uint8)
+    cv2_img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    cv2_img_resized = cv2.resize(cv2_img, (640,640))
+    cv2.imwrite('icook/img/food_picture.jpg', cv2_img_resized)
 
-response = '''
-{
-    "recipe": [
-        {
-            "Title": "Torta (Filipino Omelet)",
-            "Image": "https://spoonacular.com/recipeImages/663680-556x370.jpg",
-            "Shooping list": [
-                "garlic cloves",
-                "onion",
-                "scallions",
-                "cilantro",
-                "soy sauce"
-            ],
-            "Unused ingredients": [],
-            "Preparation time": 45,
-            "steps": [
-                [
-                    1,
-                    "In a medium-heated large skillet, add a little oil and thoroughly cook the meat and potatoes along with soy sauce, garlic and onions. Set aside to cool."
-                ],
-                [
-                    2,
-                    "Meanwhile, in a mixing bowl, combine cooled meat mixture with the eggs, tomatoes, cilantro and scallions. Season with salt & pepper and whisk until evenly incorporated."
-                ],
-                [
-                    3,
-                    "In the same skillet in medium heat, ladle just enough to form a thin pancake-size patty, one batch at a time. Cook both sides, flipping over after 2-3 minutes. Be careful not to over brown the eggs."
-                ],
-                [
-                    4,
-                    "Transfer to a plate, cut in wedges (for bite-size servings) and garnish with cilantro leaves, if you want."
-                ]
-            ]
-        }
-    ]
-}
-'''
-response = json.loads(response)
+    result=Recognition('icook/img/food_picture.jpg')
 
-#if upload_image is not None:
-#    image = upload_image.read()
-#    nparr = np.fromstring(image, np.uint8)
-#    cv2_img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-#    cv2_img_resized = cv2.resize(cv2_img, (640,640))
-#    cv2.imwrite('icook/img/food_picture.jpg', cv2_img_resized)
+    df = pd.DataFrame({'products':result})
+    json_data = df.to_json()
 
-#    result=Recognition('icook/img/food_picture.jpg')
+    response = requests.post(url="http://localhost:8000/recipes",
+                             data=json_data,
+                             headers={"Content-Type": "application/json"})
 
-    #df = pd.DataFrame({'products':result})
-    #json_data = df.to_json()
+    response = response.json()
 
-    #response = requests.post(url="http://localhost:8000/recipes",
-    #                         data=json_data,
-    #                         headers={"Content-Type": "application/json"})
+    st.write(' ')
+    st.write("<h1 style='font-size: 24px; font-weight: bold;'>Recommended dish according to your ingredients:</h1>", unsafe_allow_html=True)
 
-    #response = response.json()
+    title = response['recipe'][0]['Title']
+    dish_image = response['recipe'][0]['Image']
+    ingredients = response['recipe'][0]['Picture ingredients']
+    left_ingredients = response['recipe'][0]['Shooping list']
+    instructions = response['recipe'][0]['steps']
 
-st.write("Recommended dish according to your ingredients:", response)
+    st.title(f'{title}')
+    st.write(' ')
 
-title = response['recipe'][0]['Title']
-dish_image = response['recipe'][0]['Image']
-#ingredients = response['recipe'][0]['']
-left_ingredients = response['recipe'][0]['Shooping list']
-#instructions =
+    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Take a look of your future dish. Looks good!</h1>", unsafe_allow_html=True)
+    st.image(dish_image, width=200, use_column_width=True)
+    st.write(' ')
 
-st.title(f'{title}')
-st.write(' ')
-st.write('Take a look of your future dish. Looks good!')
-st.image(dish_image, width=200, use_column_width=True)
-st.write(' ')
-st.write('List of ingredients you have:')
-#for item in ingredients:
-#    st.write(f'• {item}')
-st.write(' ')
-st.write('List of ingredients you need to buy:')
-for item in left_ingredients:
-    st.write(f'• {item}')
-st.write(' ')
-st.write('List of ingredients you need to buy:')
-for item in left_ingredients:
-    st.write(f'• {item}')
+    st.write("<h1 style='font-size: 20px; font-weight: bold;'>List of ingredients you have:</h1>", unsafe_allow_html=True)
+    for item in ingredients:
+        st.write(f'• {item}')
+    st.write(' ')
+
+    st.write("<h1 style='font-size: 20px; font-weight: bold;'>List of ingredients you need to buy:</h1>", unsafe_allow_html=True)
+    for item in left_ingredients:
+        st.write(f'• {item}')
+    st.write(' ')
+
+    st.write("<h1 style='font-size: 20px; font-weight: bold;'>How to prepare your dish:</h1>", unsafe_allow_html=True)
+    for number, instr in instructions:
+        st.write(f'{number}) {instr}')
