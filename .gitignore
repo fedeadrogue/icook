@@ -3,3 +3,6 @@ raw_data/
 .DS_Store
 __pycache__
 .env
+
+# local test file
+local_test.ipynb
