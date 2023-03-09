@@ -90,7 +90,6 @@ def get_recipe_steps(id:int,
         if type(response)!=list and 'status' in response.keys():
             pass
         else:
-
             steps=[]
             for step in range(len(response[0]['steps'])):
                 steps.append((response[0]['steps'][step]['number'],response[0]['steps'][step]['step']))
