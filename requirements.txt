@@ -8,6 +8,7 @@ requests
 google-cloud-storage
 fastapi
 uvicorn
+streamlit-authenticator
 # tests
 httpx
 db-dtypes
