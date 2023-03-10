@@ -57,42 +57,23 @@ if st.session_state["authentication_status"]:
 
         result=Recognition('icook/img/food_picture.jpg')
         if result==[]:
-            st.write('No image recognition')
+            st.write('No recognized ingredients')
         else:
+
             df = pd.DataFrame({'products':result})
             json_data = df.to_json()
 
-        df = pd.DataFrame({'products':result})
-        json_data = df.to_json()
+            # # API call to the docker in the cloud
+            # response = requests.post(url="https://icook-6hyjqqtjpq-ew.a.run.app/recipes",
+            #                          data=json_data,
+            #                          headers={"Content-Type": "application/json"})
 
-        # # API call to the docker in the cloud
-        # response = requests.post(url="https://icook-6hyjqqtjpq-ew.a.run.app/recipes",
-        #                          data=json_data,
-        #                          headers={"Content-Type": "application/json"})
+            # api call in local
+            response = requests.post(url="http://localhost:8000/recipes",
+                                    data=json_data,
+                                    headers={"Content-Type": "application/json"})
 
-        # api call in local
-        response = requests.post(url="http://localhost:8000/recipes",
-                                data=json_data,
-                                headers={"Content-Type": "application/json"})
-
-        response = response.json()
-
-        st.write(' ')
-        st.write("<h1 style='font-size: 24px; font-weight: bold;'>We have two recommendations according to your ingredients...</h1>", unsafe_allow_html=True)
-
-        dishes = ["Choose a Dish", response['recipe'][0]['Title'], response['recipe'][1]['Title']]
-        select_dish = st.selectbox("Now it's your turn!", dishes, index=0)
-
-        #First Recipe
-        if select_dish == response['recipe'][0]['Title']:
-
-            title = response['recipe'][0]['Title']
-            dish_image = response['recipe'][0]['Image']
-            ingredients = response['recipe'][0]['Picture ingredients']
-            left_ingredients = [x[0] for x in response['recipe'][0]['Shopping list']]
-            num_left_ingredients = [x[1] for x in response['recipe'][0]['Shopping list']]
-            amount_left_ingredients = [x[2] for x in response['recipe'][0]['Shopping list']]
-            instructions = response['recipe'][0]['steps']
+            response = response.json()
 
             st.write(' ')
             st.write("<h1 style='font-size: 24px; font-weight: bold;'>We have two recommendations according to your ingredients...</h1>", unsafe_allow_html=True)
@@ -103,30 +84,30 @@ if st.session_state["authentication_status"]:
             #First Recipe
             if select_dish == response['recipe'][0]['Title']:
 
+                title = response['recipe'][0]['Title']
+                dish_image = response['recipe'][0]['Image']
+                ingredients = response['recipe'][0]['Picture ingredients']
+                left_ingredients = [x[0] for x in response['recipe'][0]['Shopping list']]
+                num_left_ingredients = [x[1] for x in response['recipe'][0]['Shopping list']]
+                amount_left_ingredients = [x[2] for x in response['recipe'][0]['Shopping list']]
+                instructions = response['recipe'][0]['steps']
+
+                st.write(' ')
+                st.title(f'{title}')
+                st.write(' ')
+
+                st.write("<h1 style='font-size: 20px; font-weight: bold;'>Take a look of your future dish. Looks good!</h1>", unsafe_allow_html=True)
+                st.image(dish_image, width=200, use_column_width=True)
+                st.write(' ')
+
+                st.write("<h1 style='font-size: 20px; font-weight: bold;'>List of ingredients you have:</h1>", unsafe_allow_html=True)
+                for item in ingredients:
+                    st.write(f'• {item}')
+                st.write(' ')
+
                 st.write("<h1 style='font-size: 20px; font-weight: bold;'>List of ingredients you need to buy:</h1>", unsafe_allow_html=True)
                 for item, num, amount in zip(left_ingredients, num_left_ingredients, amount_left_ingredients):
                     st.write(f'• {item}: {num} {amount}')
-                    st.write(' ')
-
-                    st.write(' ')
-                    st.title(f'{title}')
-                    st.write(' ')
-
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Take a look of your future dish. Looks good!</h1>", unsafe_allow_html=True)
-                    st.image(dish_image, width=200, use_column_width=True)
-                    st.write(' ')
-
-                title = response['recipe'][1]['Title']
-                dish_image = response['recipe'][1]['Image']
-                ingredients = response['recipe'][1]['Picture ingredients']
-                left_ingredients = [x[0] for x in response['recipe'][1]['Shopping list']]
-                num_left_ingredients = [x[1] for x in response['recipe'][1]['Shopping list']]
-                amount_left_ingredients = [x[2] for x in response['recipe'][1]['Shopping list']]
-                instructions = response['recipe'][1]['steps']
-
-                st.write("<h1 style='font-size: 20px; font-weight: bold;'>List of ingredients you need to buy:</h1>", unsafe_allow_html=True)
-                for item in left_ingredients:
-                    st.write(f'• {item}')
                 st.write(' ')
 
                 st.write("<h1 style='font-size: 20px; font-weight: bold;'>How to prepare your dish:</h1>", unsafe_allow_html=True)
@@ -136,10 +117,13 @@ if st.session_state["authentication_status"]:
             #Second Recipe
             elif select_dish == response['recipe'][1]['Title']:
 
-                st.write("<h1 style='font-size: 20px; font-weight: bold;'>List of ingredients you need to buy:</h1>", unsafe_allow_html=True)
-                for item, num, amount in zip(left_ingredients, num_left_ingredients, amount_left_ingredients):
-                    st.write(f'• {item}: {num} {amount}')
-                st.write(' ')
+                title = response['recipe'][1]['Title']
+                dish_image = response['recipe'][1]['Image']
+                ingredients = response['recipe'][1]['Picture ingredients']
+                left_ingredients = [x[0] for x in response['recipe'][1]['Shopping list']]
+                num_left_ingredients = [x[1] for x in response['recipe'][1]['Shopping list']]
+                amount_left_ingredients = [x[2] for x in response['recipe'][1]['Shopping list']]
+                instructions = response['recipe'][1]['steps']
 
                 st.write(' ')
                 st.write(' ')
@@ -156,8 +140,8 @@ if st.session_state["authentication_status"]:
                 st.write(' ')
 
                 st.write("<h1 style='font-size: 20px; font-weight: bold;'>List of ingredients you need to buy:</h1>", unsafe_allow_html=True)
-                for item in left_ingredients:
-                    st.write(f'• {item}')
+                for item, num, amount in zip(left_ingredients, num_left_ingredients, amount_left_ingredients):
+                    st.write(f'• {item}: {num} {amount}')
                 st.write(' ')
 
                 st.write("<h1 style='font-size: 20px; font-weight: bold;'>How to prepare your dish:</h1>", unsafe_allow_html=True)
