@@ -20,6 +20,6 @@ def Recognition(image):
     for result in prediction.json()['predictions']:
         preds_class.append(result['class'])
 
-    prediction.save(output_path="output_image.jpg")
+    prediction.save(output_path="icook/img/image_with_labels.jpg")
 
     return preds_class

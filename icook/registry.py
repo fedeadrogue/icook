@@ -1,6 +1,6 @@
 import os
 import time
-from params import *
+from icook.params import *
 
 def load_model():
 
@@ -11,7 +11,7 @@ def load_model():
     latest_model_path_to_save = os.path.join('icook/model', latest_blob.name)
     latest_blob.download_to_filename(latest_model_path_to_save)
 
-    print("✅ Latest model downloaded from cloud storage")
+    print(f"✅ Latest model downloaded from cloud storage, to {latest_model_path_to_save}")
 
     return True
 if __name__=='__main__':
