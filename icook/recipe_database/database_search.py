@@ -84,6 +84,7 @@ def db_id_query_to_spoon_format(query_by_id_return:dict, ingredients:str):
 
     return json_steps, json_info
 
+
 def ids_by_ingredients(ingredients:str):
     '''Queries local database by ingredients taking a string of ingredients
     separated by ,+ and return a list of recipe ids'''
@@ -100,8 +101,6 @@ def ids_by_ingredients(ingredients:str):
 
     # create a list of recipe_id's that contain the input ingredients
     id_list = []
-
-    # add recipes_id's that use the ingredients
     for ingredient in ingredient_list:
         ingredients_query = f'''
         Select recipe_id
@@ -110,13 +109,23 @@ def ids_by_ingredients(ingredients:str):
         '''
 
         query_result = cursor.execute(ingredients_query)
+        # transform the result to a list and drop duplicates within the same recipe
         unique_ids = list(set([x[0] for x in query_result.fetchall()]))
-        id_list.extend(unique_ids)
+        id_list.append(unique_ids)
 
     # sever connection to local database
     sqliteConnection.close()
 
-    # sort the id_list and ensure no duplicates
-    id_list = sorted(list(set(id_list)))
+    # count recipes that contain ingredients
+    count_dict = {}
+    for recipe in id_list:
+        for id in recipe:
+            if id in count_dict.keys():
+                count_dict[id] += 1
+            else:
+                count_dict[id] = 1
 
-    return id_list
+    # sort list by ingredient occurance
+    id_list_by_ingredient_occurance = sorted(count_dict, key=count_dict.get, reverse=True)
+
+    return id_list_by_ingredient_occurance
