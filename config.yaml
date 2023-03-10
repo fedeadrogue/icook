@@ -1,0 +1,23 @@
+credentials:
+  usernames:
+    fede:
+      name: fede
+      password: '$2b$12$RW6a4j4CB1PDQNU4AJX79egfl7LmYjblSOPK6qc88mdzZZo3Z5.kS' # To be replaced with hashed password
+    ludwig:
+      name: ludwig
+      password: '$2b$12$zKsV47l5jUyMfIujHZGYnO4GETCFO/sN5awnrcOYcp7ZUm84wR8Mm' # To be replaced with hashed password
+    rodri:
+      name: rodri
+      password: '$2b$12$ZPCMS066SDRmgxTC2jFWVuc73NvNvtgaUtVzbFO6j/eMHhIeY1Kn6' # To be replaced with hashed password
+    alberto:
+      name: alberto
+      password: '$2b$12$z5b5D03xjtn8/NLEuk0sb.BalhDLAquGFaVhgepjf4vulNxMnKKNG' # To be replaced with hashed password
+
+
+cookie:
+  expiry_days: 30
+  key: some_signature_key
+  name: some_cookie_name
+preauthorized:
+  emails:
+  - fedeadrogue@hotmail.com
