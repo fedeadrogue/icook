@@ -12,7 +12,8 @@ def get_recipes_id(ingredients:str, #list of infgredients separate by coma in on
         'SPOON_API_KEY_R',
         'SPOON_API_KEY_F',
         'SPOON_API_KEY_A',
-        'SPOON_API_KEY_L'
+        'SPOON_API_KEY_L',
+        'SPOON_API_KEY_F2'
     ]
 
     for key in SPOON_API_KEY:
@@ -42,7 +43,8 @@ def get_recipes_information(id:int,
         'SPOON_API_KEY_R',
         'SPOON_API_KEY_F',
         'SPOON_API_KEY_A',
-        'SPOON_API_KEY_L'
+        'SPOON_API_KEY_L',
+        'SPOON_API_KEY_F2'
     ]
 
     for key in SPOON_API_KEY:
@@ -75,7 +77,8 @@ def get_recipe_steps(id:int,
         'SPOON_API_KEY_R',
         'SPOON_API_KEY_F',
         'SPOON_API_KEY_A',
-        'SPOON_API_KEY_L'
+        'SPOON_API_KEY_L',
+        'SPOON_API_KEY_F2'
     ]
 
     for key in SPOON_API_KEY:
@@ -110,7 +113,7 @@ def SpoonAPIcall(ingredients:list, # list of ingredients (can be repeating)
 
     # call spoon API search by ingredients
     response=get_recipes_id(ingredients_str,number)
-    
+
     if response!=None:
 
         recipes=[]
