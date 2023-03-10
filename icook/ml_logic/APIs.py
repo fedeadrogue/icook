@@ -100,6 +100,9 @@ def get_recipe_steps(id:int,
         }
 
         response=requests.get(url, params=params).json()
+        if response==[]:
+            return [(0,'No steps needed')]
+
         if type(response)!=list and 'status' in response.keys():
             pass
         else:
