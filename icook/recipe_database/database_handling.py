@@ -1,7 +1,6 @@
 import sqlite3
 import os
 import requests
-#from icook.ml_logic.APIs import get_recipes_id, get_recipes_information, get_recipe_steps
 
 recipe_database = 'recipe_sqlite.db'
 
@@ -155,6 +154,7 @@ def write_ingredients_table(id, json_info, cursor):
         cursor.execute(query, (table_ingredients_id, recipe_id, ingredient_id,
                                ingredient_name, amount, unit))
 
+
 def write_steps_table(id, json_steps, cursor):
     '''Write a new row to the steps table'''
 
@@ -284,31 +284,6 @@ def delete_row(id, recipe_database=recipe_database):
         cursor.execute(deletion_query)
 
     sqliteConnection.close()
-
-
-# import numpy as np
-# import matplotlib.pyplot as plt
-# import cv2
-
-# def show_image_from_db(id, recipe_database:str=recipe_database):
-#     '''Retrieve image by id, convert from blob format and show'''
-
-#     sqliteConnection = sqlite3.connect(recipe_database)
-#     cursor = sqliteConnection.cursor()
-
-#     image_query = f"""
-#     SELECT image
-#     FROM recipes
-#     WHERE recipe_id = {id}
-#     """
-#     query_result = cursor.execute(image_query)
-#     images = query_result.fetchall()
-
-#     sqliteConnection.close()
-
-#     nparr  = np.frombuffer(images[0][0], np.uint8)
-#     img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-#     plt.imshow(img_np)
 
 
 if __name__ == '__main__':
