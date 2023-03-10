@@ -30,6 +30,8 @@ def get_recipes_id(ingredients:str, #list of infgredients separate by coma in on
         else:
             return response
 
+    return [{'title':'All keys over'}]
+
 
 
 def get_recipes_information(id:int,
@@ -66,6 +68,14 @@ def get_recipes_information(id:int,
 
             return result
 
+    result={
+                'image':'All keys over', # Picture of the recipe
+                'readyInMinutes':'All keys over', # preparation time
+                'spoonacularSourceUrl':'All keys over' # url link
+            }
+
+    return result
+
 def get_recipe_steps(id:int,
                      stepBreakdown: bool=True):
     '''Return a list of tuples (number of the step, description)'''
@@ -96,6 +106,8 @@ def get_recipe_steps(id:int,
 
             return steps
 
+    return [(0,'All keys over')]
+
 
 def SpoonAPIcall(ingredients:list, # list of ingredients (can be repeating)
                  number:int=2 # max number of recipes you want to return (between 1 and 10)
@@ -110,12 +122,12 @@ def SpoonAPIcall(ingredients:list, # list of ingredients (can be repeating)
 
     # call spoon API search by ingredients
     response=get_recipes_id(ingredients_str,number)
-    
+
     if response!=None:
 
         recipes=[]
 
-        for i in range(number):
+        for i in range(len(response)):
             # get a list of names of all missing and unused ingredients
             shopping_list = [ingredient['name'] for ingredient in response[i]['missedIngredients']]
             unused_list = [ingredient['name'] for ingredient in response[i]['unusedIngredients']]
