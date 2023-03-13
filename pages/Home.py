@@ -9,6 +9,7 @@ import streamlit_authenticator as stauth
 import yaml
 import io
 import json
+from icook.recipe_database.database_streamlit import add_recipe, get_recipes
 
 st.set_page_config(page_title="iCook", page_icon=":fork_and_knife:")
 
@@ -91,6 +92,7 @@ if st.session_state["authentication_status"]:
                 if select_dish == response['recipe'][0]['Title']:
 
                     title = response['recipe'][0]['Title']
+                    recipe_id = response['recipe'][0]['ID']
                     dish_image = response['recipe'][0]['Image']
                     ingredients = response['recipe'][0]['Picture ingredients']
                     left_ingredients = [x[0] for x in response['recipe'][0]['Shopping list']]
@@ -123,6 +125,7 @@ if st.session_state["authentication_status"]:
                     # Display button to save recipe
                     st.write("<h1 style='font-size: 20px; font-weight: bold;'>⭐ Did you like the recipe? Save it for later!</h1>", unsafe_allow_html=True)
                     if st.button("Save Recipe"):
+                        add_recipe(st.session_state['name'] , recipe_id)
                         if title not in st.session_state["saved_recipes"]:
                             st.session_state["saved_recipes"].append(title)
                             st.success(f"{title} added to saved recipes!")
@@ -133,6 +136,7 @@ if st.session_state["authentication_status"]:
                 elif select_dish == response['recipe'][1]['Title']:
 
                     title = response['recipe'][1]['Title']
+                    recipe_id = response['recipe'][0]['ID']
                     dish_image = response['recipe'][1]['Image']
                     ingredients = response['recipe'][1]['Picture ingredients']
                     left_ingredients = [x[0] for x in response['recipe'][1]['Shopping list']]
@@ -166,6 +170,7 @@ if st.session_state["authentication_status"]:
                     # Display button to save recipe
                     st.write("<h1 style='font-size: 20px; font-weight: bold;'>⭐ Did you like the recipe? Save it for later!</h1>", unsafe_allow_html=True)
                     if st.button("Save Recipe"):
+                        add_recipe(st.session_state['name'] , recipe_id)
                         if title not in st.session_state["saved_recipes"]:
                             st.session_state["saved_recipes"].append(title)
                             st.success(f"{title} added to saved recipes!")
@@ -176,12 +181,16 @@ if st.session_state["authentication_status"]:
     st.write(' ')
     st.write("<h1 style='font-size: 20px; font-weight: bold;'>🍽️ Your Saved Recipes:</h1>", unsafe_allow_html=True)
     if st.button("View Saved Recipes"):
-        if len(st.session_state["saved_recipes"]) == 0:
-            st.write("<h1 style='font-size: 20px; font-weight: bold;'>No recipes saved ☹️ </h1>", unsafe_allow_html=True)
-        else:
-            st.write("<h1 style='font-size: 20px; font-weight: bold;'>⭐ Your Recipes:</h1>", unsafe_allow_html=True)
-            for i, recipe in enumerate(st.session_state["saved_recipes"]):
-                st.write(f"{i+1}. {recipe}")
+        recipies = get_recipes(st.session_state['name'])
+        recipies = list(set(recipies))
+        st.write(recipies)
+
+        #if len(st.session_state["saved_recipes"]) == 0:
+        #    st.write("<h1 style='font-size: 20px; font-weight: bold;'>No recipes saved ☹️ </h1>", unsafe_allow_html=True)
+        #else:
+        #    st.write("<h1 style='font-size: 20px; font-weight: bold;'>⭐ Your Recipes:</h1>", unsafe_allow_html=True)
+           # for i, recipe in enumerate(st.session_state["saved_recipes"]):
+               # st.write(f"{i+1}. {recipe}")
 
 elif st.session_state["authentication_status"] == False:
     st.error('Username/password is incorrect')
