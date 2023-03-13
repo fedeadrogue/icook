@@ -1,23 +1,61 @@
-credentials:
-  usernames:
-    fede:
-      name: fede
-      password: '$2b$12$RW6a4j4CB1PDQNU4AJX79egfl7LmYjblSOPK6qc88mdzZZo3Z5.kS' # To be replaced with hashed password
-    ludwig:
-      name: ludwig
-      password: '$2b$12$zKsV47l5jUyMfIujHZGYnO4GETCFO/sN5awnrcOYcp7ZUm84wR8Mm' # To be replaced with hashed password
-    rodri:
-      name: rodri
-      password: '$2b$12$ZPCMS066SDRmgxTC2jFWVuc73NvNvtgaUtVzbFO6j/eMHhIeY1Kn6' # To be replaced with hashed password
-    alberto:
-      name: alberto
-      password: '$2b$12$z5b5D03xjtn8/NLEuk0sb.BalhDLAquGFaVhgepjf4vulNxMnKKNG' # To be replaced with hashed password
-
-
 cookie:
   expiry_days: 30
   key: some_signature_key
   name: some_cookie_name
+credentials:
+  usernames:
+    aa:
+      email: aa
+      name: aa
+      password: $2b$12$X6aoyXP2gOQ0tKEUqDPXN.5lrZj1BNEVLhK3p6nPvlqOgwYUe7sda
+    aaa:
+      email: aaa
+      name: aaa
+      password: $2b$12$liMLD1p/csNIyrIvHH5eE.4ruZ8YY/eoxHuyco/5m4W3cXh0OCdoS
+    al:
+      email: al
+      name: al
+      password: $2b$12$nOXk6c9Q2xA6kR71ZUVR1Os2taEZti.Bdq5YraI0I/UYU942l9KJ6
+    alberto:
+      name: alberto
+      password: $2b$12$z5b5D03xjtn8/NLEuk0sb.BalhDLAquGFaVhgepjf4vulNxMnKKNG
+    aq:
+      email: aq
+      name: aq
+      password: $2b$12$5rsHHE1JSLOT2f/R1gRYneqOYySJSr7M8lycPZkj9xLy/maf.Mm5S
+    ar:
+      email: ar
+      name: ar
+      password: $2b$12$JkCoB0en8JWpai7u0Qd1/uI0RyoNTBv5leNF1a73cQoC1xaIj7P3.
+    as:
+      email: as
+      name: as
+      password: $2b$12$AFW7dx3DMytXj4uVSgxQoeTnq.3nZYhK3pcRQ4Fzsyafcnnw5E9pu
+    aw:
+      email: aw
+      name: aw
+      password: $2b$12$8F.IMu34Q.W31hnlK4NfD.ho/UYYrcz1Qa.WqC9fBozbPv6r10/l.
+    ee:
+      email: ee
+      name: ee
+      password: $2b$12$bHXsmkXX8OAp2AZDzYb3ROVT3sru./OlJjKx8zE1GplDtbpDJrGOq
+    fede:
+      name: fede
+      password: $2b$12$RW6a4j4CB1PDQNU4AJX79egfl7LmYjblSOPK6qc88mdzZZo3Z5.kS
+    ludwig:
+      name: ludwig
+      password: $2b$12$zKsV47l5jUyMfIujHZGYnO4GETCFO/sN5awnrcOYcp7ZUm84wR8Mm
+    po:
+      email: po
+      name: po
+      password: $2b$12$dGLrkHyshjfIJSWE9ssWRO73x/MbyViHQR.dNehpKL0ukO5naXX5G
+    prueba:
+      email: prueba
+      name: prueba
+      password: $2b$12$zfPjA3EJxx.St0R7yljpIe.jNJy23qTCBzQYf5ypRY5EO1H7.dAcK
+    rodri:
+      name: rodri
+      password: $2b$12$ZPCMS066SDRmgxTC2jFWVuc73NvNvtgaUtVzbFO6j/eMHhIeY1Kn6
 preauthorized:
   emails:
   - fedeadrogue@hotmail.com
