@@ -15,7 +15,10 @@ def index():
 def index(data: Dict[str,Any]):
     products = list(data['products'].values())
     recipies = SpoonAPIcall(products)
-    return {'recipe':recipies}
+    if recipies=='All keys over':
+        return 0
+    else:
+        return {'recipe':recipies}
 
 # @app.post('/recognition')
 # def prediction(data:Dict[str,Any]):
