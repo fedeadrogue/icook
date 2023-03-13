@@ -55,7 +55,7 @@ st.write("With iCook, all you need to do is snap a photo of the items you have o
 
 st.write(" ")
 
-if st.button("I have a user"):
+if st.button("I have a user 😄"):
     nav_page("Home")
 
 with open('config.yaml') as file:

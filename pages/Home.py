@@ -38,7 +38,7 @@ authenticator = stauth.Authenticate(
     config['preauthorized']
 )
 
-name, authentication_status, username = authenticator.login("Let's cook", "main")
+name, authentication_status, username = authenticator.login("Let's cook 👨‍🍳", "main")
 
 if st.session_state["authentication_status"]:
     authenticator.logout('Logout', 'main')
@@ -50,7 +50,7 @@ if st.session_state["authentication_status"]:
     if "saved_recipes" not in st.session_state:
         st.session_state.saved_recipes = []
 
-    upload_image = st.camera_input("Take a picture of your food!")
+    upload_image = st.camera_input("Take a picture of your food! 📷")
 
     if upload_image is not None:
         image = upload_image.read()
@@ -84,7 +84,7 @@ if st.session_state["authentication_status"]:
                 st.write(' ')
                 st.write("<h1 style='font-size: 24px; font-weight: bold;'>We have two recommendations according to your ingredients...</h1>", unsafe_allow_html=True)
 
-                dishes = ["Choose a Dish", response['recipe'][0]['Title'], response['recipe'][1]['Title']]
+                dishes = ["Choose a Dish 🍳", response['recipe'][0]['Title'], response['recipe'][1]['Title']]
                 select_dish = st.selectbox("Now it's your turn!", dishes, index=0)
 
                 #First Recipe
@@ -102,26 +102,26 @@ if st.session_state["authentication_status"]:
                     st.title(f'{title}')
                     st.write(' ')
 
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Take a look of your future dish. Looks good!</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Take a look of your future dish. Looks good! 🤤</h1>", unsafe_allow_html=True)
                     st.image(dish_image, width=200, use_column_width=True)
                     st.write(' ')
 
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>List of ingredients you have:</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>✅ List of ingredients you have:</h1>", unsafe_allow_html=True)
                     for item in ingredients:
                         st.write(f'• {item}')
                     st.write(' ')
 
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>List of ingredients you need to buy:</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>🛒 List of ingredients you need to buy:</h1>", unsafe_allow_html=True)
                     for item, num, amount in zip(left_ingredients, num_left_ingredients, amount_left_ingredients):
                         st.write(f'• {item}: {num} {amount}')
                     st.write(' ')
 
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>How to prepare your dish:</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>🔪 How to prepare your dish:</h1>", unsafe_allow_html=True)
                     for number, instr in instructions:
                         st.write(f'{number}) {instr}')
 
                     # Display button to save recipe
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Did you like the recipe? Save it for later!</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>⭐ Did you like the recipe? Save it for later!</h1>", unsafe_allow_html=True)
                     if st.button("Save Recipe"):
                         if title not in st.session_state["saved_recipes"]:
                             st.session_state["saved_recipes"].append(title)
@@ -145,26 +145,26 @@ if st.session_state["authentication_status"]:
                     st.title(f'{title}')
                     st.write(' ')
 
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Take a look of your future dish. Looks good!</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Take a look of your future dish. Looks good! 🤤</h1>", unsafe_allow_html=True)
                     st.image(dish_image, width=200, use_column_width=True)
                     st.write(' ')
 
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>List of ingredients you have:</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>✅ List of ingredients you have:</h1>", unsafe_allow_html=True)
                     for item in ingredients:
                         st.write(f'• {item}')
                     st.write(' ')
 
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>List of ingredients you need to buy:</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>🛒 List of ingredients you need to buy:</h1>", unsafe_allow_html=True)
                     for item, num, amount in zip(left_ingredients, num_left_ingredients, amount_left_ingredients):
                         st.write(f'• {item}: {num} {amount}')
                     st.write(' ')
 
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>How to prepare your dish:</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>🔪 How to prepare your dish:</h1>", unsafe_allow_html=True)
                     for number, instr in instructions:
                         st.write(f'{number}) {instr}')
 
                     # Display button to save recipe
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Did you like the recipe? Save it for later!</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>⭐ Did you like the recipe? Save it for later!</h1>", unsafe_allow_html=True)
                     if st.button("Save Recipe"):
                         if title not in st.session_state["saved_recipes"]:
                             st.session_state["saved_recipes"].append(title)
@@ -174,12 +174,12 @@ if st.session_state["authentication_status"]:
 
     # Display list of saved recipes
     st.write(' ')
-    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Your Saved Recipes:</h1>", unsafe_allow_html=True)
+    st.write("<h1 style='font-size: 20px; font-weight: bold;'>🍽️ Your Saved Recipes:</h1>", unsafe_allow_html=True)
     if st.button("View Saved Recipes"):
         if len(st.session_state["saved_recipes"]) == 0:
-            st.write("<h1 style='font-size: 20px; font-weight: bold;'>No recipes saved :(</h1>", unsafe_allow_html=True)
+            st.write("<h1 style='font-size: 20px; font-weight: bold;'>No recipes saved ☹️ </h1>", unsafe_allow_html=True)
         else:
-            st.write("<h1 style='font-size: 20px; font-weight: bold;'>Your Recipes:</h1>", unsafe_allow_html=True)
+            st.write("<h1 style='font-size: 20px; font-weight: bold;'>⭐ Your Recipes:</h1>", unsafe_allow_html=True)
             for i, recipe in enumerate(st.session_state["saved_recipes"]):
                 st.write(f"{i+1}. {recipe}")
 
