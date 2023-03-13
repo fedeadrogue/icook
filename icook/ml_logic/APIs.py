@@ -9,11 +9,11 @@ def get_recipes_id(ingredients:str, #list of infgredients separate by coma in on
     url = "https://api.spoonacular.com/recipes/findByIngredients"
 
     SPOON_API_KEY=[
-        'SPOON_API_KEY_',
-        # 'SPOON_API_KEY_F',
-        # 'SPOON_API_KEY_A',
-        # 'SPOON_API_KEY_L',
-        # 'SPOON_API_KEY_F2'
+        'SPOON_API_KEY_R',
+        'SPOON_API_KEY_F',
+        'SPOON_API_KEY_A',
+        'SPOON_API_KEY_L',
+        'SPOON_API_KEY_F2'
     ]
 
     for key in SPOON_API_KEY:
