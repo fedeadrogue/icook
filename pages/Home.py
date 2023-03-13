@@ -92,6 +92,7 @@ if st.session_state["authentication_status"]:
                 if select_dish == response['recipe'][0]['Title']:
 
                     title = response['recipe'][0]['Title']
+                    recipe_id = response['recipe'][0]['ID']
                     dish_image = response['recipe'][0]['Image']
                     ingredients = response['recipe'][0]['Picture ingredients']
                     left_ingredients = [x[0] for x in response['recipe'][0]['Shopping list']]
@@ -124,7 +125,7 @@ if st.session_state["authentication_status"]:
                     # Display button to save recipe
                     st.write("<h1 style='font-size: 20px; font-weight: bold;'>⭐ Did you like the recipe? Save it for later!</h1>", unsafe_allow_html=True)
                     if st.button("Save Recipe"):
-                        add_recipe(st.session_state['name'] , title)
+                        add_recipe(st.session_state['name'] , recipe_id)
                         if title not in st.session_state["saved_recipes"]:
                             st.session_state["saved_recipes"].append(title)
                             st.success(f"{title} added to saved recipes!")
@@ -135,7 +136,7 @@ if st.session_state["authentication_status"]:
                 elif select_dish == response['recipe'][1]['Title']:
 
                     title = response['recipe'][1]['Title']
-                    add_recipe(st.session_state['name'] , title)
+                    recipe_id = response['recipe'][0]['ID']
                     dish_image = response['recipe'][1]['Image']
                     ingredients = response['recipe'][1]['Picture ingredients']
                     left_ingredients = [x[0] for x in response['recipe'][1]['Shopping list']]
@@ -169,6 +170,7 @@ if st.session_state["authentication_status"]:
                     # Display button to save recipe
                     st.write("<h1 style='font-size: 20px; font-weight: bold;'>⭐ Did you like the recipe? Save it for later!</h1>", unsafe_allow_html=True)
                     if st.button("Save Recipe"):
+                        add_recipe(st.session_state['name'] , recipe_id)
                         if title not in st.session_state["saved_recipes"]:
                             st.session_state["saved_recipes"].append(title)
                             st.success(f"{title} added to saved recipes!")
