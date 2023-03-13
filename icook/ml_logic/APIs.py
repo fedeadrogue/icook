@@ -176,6 +176,7 @@ def SpoonAPIcall(ingredients:list, # list of ingredients (can be repeating)
                 steps=get_recipe_steps(response[i]['id'], ingredients_str)
 
                 recipe={
+                    'ID':response[i]['id'], # recipe id
                     'Title':response[i]['title'], # title of the recipe
                     'Image':information['image'], # image of the dish
                     'Picture ingredients':ingredients_unique, # list of ingredients find in the picture
@@ -201,6 +202,7 @@ def SpoonAPIcall(ingredients:list, # list of ingredients (can be repeating)
 
 
                 recipe={
+                    'ID':information['id'], # recipe id
                     'Title':information['title'], # title of the recipe
                     'Image':information['image'], # image of the dish
                     'Picture ingredients':ingredients_unique, # list of ingredients find in the picture
