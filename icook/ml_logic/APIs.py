@@ -9,11 +9,11 @@ def get_recipes_id(ingredients:str, #list of infgredients separate by coma in on
     url = "https://api.spoonacular.com/recipes/findByIngredients"
 
     SPOON_API_KEY=[
-        'SPOON_API_KEY_R',
-        'SPOON_API_KEY_F',
-        'SPOON_API_KEY_A',
-        'SPOON_API_KEY_L',
-        'SPOON_API_KEY_F2'
+        'SPOON_API_KEY_',
+        # 'SPOON_API_KEY_F',
+        # 'SPOON_API_KEY_A',
+        # 'SPOON_API_KEY_L',
+        # 'SPOON_API_KEY_F2'
     ]
 
     for key in SPOON_API_KEY:
@@ -31,7 +31,7 @@ def get_recipes_id(ingredients:str, #list of infgredients separate by coma in on
         else:
             return response
 
-    return [{'title':'All keys over'}]
+    return 'All keys over'
 
 
 
@@ -128,11 +128,10 @@ def SpoonAPIcall(ingredients:list, # list of ingredients (can be repeating)
 
     # call spoon API search by ingredients
     response=get_recipes_id(ingredients_str,number)
-
-    if response!=None:
-
+    if response=='All keys over':
+        return 'All keys over'
+    elif response!=None and response!='All keys over':
         recipes=[]
-
         for i in range(len(response)):
             # get a list of names of all missing and unused ingredients
             shopping_list = [(ingredient['name'],ingredient['amount'],ingredient['unit']) for ingredient in response[i]['missedIngredients']]
