@@ -121,7 +121,7 @@ if st.session_state["authentication_status"]:
                         st.write(f'{number}) {instr}')
 
                     # Display button to save recipe
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Did you like the recipe? Save it for later!:</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Did you like the recipe? Save it for later!</h1>", unsafe_allow_html=True)
                     if st.button("Save Recipe"):
                         if title not in st.session_state["saved_recipes"]:
                             st.session_state["saved_recipes"].append(title)
@@ -164,7 +164,7 @@ if st.session_state["authentication_status"]:
                         st.write(f'{number}) {instr}')
 
                     # Display button to save recipe
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Did you like the recipe? Save it for later!:</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Did you like the recipe? Save it for later!</h1>", unsafe_allow_html=True)
                     if st.button("Save Recipe"):
                         if title not in st.session_state["saved_recipes"]:
                             st.session_state["saved_recipes"].append(title)

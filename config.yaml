@@ -12,6 +12,10 @@ credentials:
       email: aaa
       name: aaa
       password: $2b$12$liMLD1p/csNIyrIvHH5eE.4ruZ8YY/eoxHuyco/5m4W3cXh0OCdoS
+    al:
+      email: al
+      name: al
+      password: $2b$12$nOXk6c9Q2xA6kR71ZUVR1Os2taEZti.Bdq5YraI0I/UYU942l9KJ6
     alberto:
       name: alberto
       password: $2b$12$z5b5D03xjtn8/NLEuk0sb.BalhDLAquGFaVhgepjf4vulNxMnKKNG
@@ -23,6 +27,10 @@ credentials:
       email: as
       name: as
       password: $2b$12$AFW7dx3DMytXj4uVSgxQoeTnq.3nZYhK3pcRQ4Fzsyafcnnw5E9pu
+    aw:
+      email: aw
+      name: aw
+      password: $2b$12$8F.IMu34Q.W31hnlK4NfD.ho/UYYrcz1Qa.WqC9fBozbPv6r10/l.
     ee:
       email: ee
       name: ee
