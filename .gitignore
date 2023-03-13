@@ -6,3 +6,7 @@ __pycache__
 
 # local test file
 local_test.ipynb
+
+# image files
+img/food_picture.jpg
+img/image_with_labels.jpg
