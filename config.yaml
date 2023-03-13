@@ -19,6 +19,10 @@ credentials:
     alberto:
       name: alberto
       password: $2b$12$z5b5D03xjtn8/NLEuk0sb.BalhDLAquGFaVhgepjf4vulNxMnKKNG
+    aq:
+      email: aq
+      name: aq
+      password: $2b$12$5rsHHE1JSLOT2f/R1gRYneqOYySJSr7M8lycPZkj9xLy/maf.Mm5S
     ar:
       email: ar
       name: ar
@@ -41,6 +45,10 @@ credentials:
     ludwig:
       name: ludwig
       password: $2b$12$zKsV47l5jUyMfIujHZGYnO4GETCFO/sN5awnrcOYcp7ZUm84wR8Mm
+    po:
+      email: po
+      name: po
+      password: $2b$12$dGLrkHyshjfIJSWE9ssWRO73x/MbyViHQR.dNehpKL0ukO5naXX5G
     prueba:
       email: prueba
       name: prueba
