@@ -52,7 +52,11 @@ def missing_unused_ingredients(recipe:dict, ingredients:str):
     return missing_ingredients, unused_ingredients
 
 
-def db_id_query_to_spoon_format(query_by_id_return:dict, ingredients:str):
+def db_id_query_to_spoon_format(query_by_id_return:dict,
+                                ingredients:str,
+                                steps_only:bool = False,
+                                info_only:bool = False
+                                ):
     '''Format local database return and a string of available ingredients separated by ,+
     to match the return format from spoon API'''
 
@@ -70,6 +74,11 @@ def db_id_query_to_spoon_format(query_by_id_return:dict, ingredients:str):
         extendedIngredients.append((dict((k, v) for k,v in zip(keys_extendedIngredients, ingredient))))
     json_info['extendedIngredients'] = extendedIngredients
 
+    # add info on missing and unused ingredients
+    missing_ingredients, unused_ingredients = missing_unused_ingredients(query_by_id_return, ingredients)
+    json_info['missedIngredients'] = missing_ingredients
+    json_info['unusedIngredients'] = unused_ingredients
+
     # format return from steps table
     steps = []
     keys_steps = ('step_id', 'number', 'step', 'recipe_id')
@@ -77,10 +86,11 @@ def db_id_query_to_spoon_format(query_by_id_return:dict, ingredients:str):
         steps.append((dict((k, v) for k,v in zip(keys_steps, step))))
     json_steps = [{'name':'', 'steps':steps}]
 
-    # add info on missing and unused ingredients
-    missing_ingredients, unused_ingredients = missing_unused_ingredients(query_by_id_return, ingredients)
-    json_info['missedIngredients'] = missing_ingredients
-    json_info['unusedIngredients'] = unused_ingredients
+    if steps_only:
+        return json_steps
+
+    if info_only:
+        return json_info
 
     return json_steps, json_info
 
