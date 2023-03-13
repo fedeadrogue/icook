@@ -1,6 +1,8 @@
 import sqlite3
 import os
 import requests
+import numpy as np
+from time import sleep
 
 recipe_database = 'recipe_sqlite.db'
 
@@ -240,6 +242,22 @@ def new_db_entry_from_spoon_id(
             print(e2)
 
     sqliteConnection.close()
+
+
+def automated_db_population(recipe_number:int):
+    '''Automatically fetch recipe_number recipes from spoon API and store them
+    in the local recipe database'''
+
+    for i in range(recipe_number):
+        print(f'Adding recipe {i+1} of {recipe_number}')
+        id = lowest_non_existant_id()
+        new_db_entry_from_spoon_id(id)
+
+        # added wait time to avoid anti-scraping measures
+        if i+1 != recipe_number:
+            random_sleep = np.random.uniform(0.5,3)
+            print(f'Waiting {round(random_sleep, 2)} seconds until the next request')
+            sleep(random_sleep)
 
 
 def lowest_non_existant_id(

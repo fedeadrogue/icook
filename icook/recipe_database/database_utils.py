@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 import sqlite3
+import time
+from icook.recipe_database.database_handling import lowest_non_existant_id, new_db_entry_from_spoon_id
 
 recipe_database = 'recipe_sqlite.db'
 
