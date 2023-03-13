@@ -9,7 +9,7 @@ def model_Roboflow():
     project = rf.workspace().project("icook")
 
     sys.stdout = sys.__stdout__
-    return project.version(3).model
+    return project.version(5).model
 
 def Recognition(image):
     '''Object Recognition Model predicts input image, saves output image and returns the list of ingredients'''
