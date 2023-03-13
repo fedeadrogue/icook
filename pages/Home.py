@@ -6,6 +6,7 @@ import cv2
 import requests
 from PIL import Image
 import streamlit_authenticator as stauth
+import yaml
 import io
 import json
 
@@ -80,8 +81,6 @@ if st.session_state["authentication_status"]:
             if response==0:
                 st.write('API key error: probably you spend all the free calls on spoon')
             else:
-                response = response.json()
-
                 st.write(' ')
                 st.write("<h1 style='font-size: 24px; font-weight: bold;'>We have two recommendations according to your ingredients...</h1>", unsafe_allow_html=True)
 
@@ -122,7 +121,7 @@ if st.session_state["authentication_status"]:
                         st.write(f'{number}) {instr}')
 
                     # Display button to save recipe
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Did you like the recipe? Save it for later!:</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Did you like the recipe? Save it for later!</h1>", unsafe_allow_html=True)
                     if st.button("Save Recipe"):
                         if title not in st.session_state["saved_recipes"]:
                             st.session_state["saved_recipes"].append(title)
@@ -165,7 +164,7 @@ if st.session_state["authentication_status"]:
                         st.write(f'{number}) {instr}')
 
                     # Display button to save recipe
-                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Did you like the recipe? Save it for later!:</h1>", unsafe_allow_html=True)
+                    st.write("<h1 style='font-size: 20px; font-weight: bold;'>Did you like the recipe? Save it for later!</h1>", unsafe_allow_html=True)
                     if st.button("Save Recipe"):
                         if title not in st.session_state["saved_recipes"]:
                             st.session_state["saved_recipes"].append(title)
