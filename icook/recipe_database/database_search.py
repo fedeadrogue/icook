@@ -85,9 +85,9 @@ def db_id_query_to_spoon_format(query_by_id_return:dict, ingredients:str):
     return json_steps, json_info
 
 
-def ids_by_ingredients(ingredients:str):
+def ids_by_ingredients(ingredients:str, recipe_number:int):
     '''Queries local database by ingredients taking a string of ingredients
-    separated by ,+ and return a list of recipe ids'''
+    separated by ,+ . Returns recipe_number recipe ids as a list'''
 
     # make input string all lower case
     ingredients = ingredients.lower()
@@ -113,9 +113,6 @@ def ids_by_ingredients(ingredients:str):
         unique_ids = list(set([x[0] for x in query_result.fetchall()]))
         id_list.append(unique_ids)
 
-    # sever connection to local database
-    sqliteConnection.close()
-
     # count recipes that contain ingredients
     count_dict = {}
     for recipe in id_list:
@@ -126,6 +123,21 @@ def ids_by_ingredients(ingredients:str):
                 count_dict[id] = 1
 
     # sort list by ingredient occurance
-    id_list_by_ingredient_occurance = sorted(count_dict, key=count_dict.get, reverse=True)
+    ids_by_ingredient_occurance = sorted(count_dict, key=count_dict.get, reverse=True)
 
-    return id_list_by_ingredient_occurance
+    # ensure to only return recipes that have steps associated with them
+    steps_query = f'''
+    SELECT DISTINCT recipe_id
+    FROM steps
+    '''
+    query_result = cursor.execute(steps_query)
+    recipes_with_steps = [x[0] for x in query_result.fetchall()]
+    ids_by_ingredient_occurance = [x for x in ids_by_ingredient_occurance if x in recipes_with_steps]
+
+    # sever connection to local database
+    sqliteConnection.close()
+
+    # return only as many recipes as specified
+    ids_by_ingredient_occurance = ids_by_ingredient_occurance[:recipe_number]
+
+    return ids_by_ingredient_occurance
