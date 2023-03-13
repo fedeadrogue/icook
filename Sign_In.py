@@ -56,7 +56,7 @@ st.write("With iCook, all you need to do is snap a photo of the items you have o
 st.write(" ")
 
 if st.button("I have a user"):
-    nav_page("app")
+    nav_page("Home")
 
 with open('config.yaml') as file:
     config = stauth.yaml.load(file, Loader=stauth.SafeLoader)
@@ -72,7 +72,7 @@ authenticator = stauth.Authenticate(
 try:
     if authenticator.register_user("Don't have a user? Create one!", preauthorization=False):
         st.success('User registered successfully')
-        nav_page("app")
+        nav_page("Home")
 except Exception as e:
     st.error(e)
 
